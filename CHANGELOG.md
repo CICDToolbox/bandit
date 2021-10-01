@@ -7,7 +7,9 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 ### [Unreleased](https://github.com/CICDToolbox/bandit/compare/v0.1.0...HEAD)
 
-- clean [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
+- update [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
+
+- clean [`[4604112]`](https://github.com/CICDToolbox/bandit/commit/4604112a8a9beb97d078230093d0e26bec329032)
 
 - The initial commit [`[1dedfad]`](https://github.com/CICDToolbox/bandit/commit/1dedfadd7bb397ac44c34b1ab9b910398dcc89da)
 

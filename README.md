@@ -120,6 +120,6 @@ AND
     </a>
     <br />
     <a href="https://ko-fi.com/wolfsoftware">
-		    <img src="https://img.shields.io/badge/Ko%20Fi-black?style=for-the-badge&logo=ko-fi&logoColor=white" />
+        <img src="https://img.shields.io/badge/Ko%20Fi-black?style=for-the-badge&logo=ko-fi&logoColor=white" />
 	</a>
 </p>

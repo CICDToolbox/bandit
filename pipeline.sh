@@ -50,13 +50,18 @@ function install_prerequisites
 
     python -m pip install --quiet --upgrade pip
 
-    if errors=$( ${INSTALL_COMMAND} 2>&1 ); then
-        success "${INSTALL_COMMAND}"
-    else
-        fail "${INSTALL_COMMAND}" "${errors}" true
-        if [[ "${EXIT_ON_INSTALL_FAILURE}" == true ]]; then
-            exit $EXIT_VALUE
+    if ! command -v ${INSTALL_PACKAGE} &> /dev/null
+    then
+        if errors=$( ${INSTALL_COMMAND} 2>&1 ); then
+            success "${INSTALL_COMMAND}"
+        else
+            fail "${INSTALL_COMMAND}" "${errors}" true
+            if [[ "${EXIT_ON_INSTALL_FAILURE}" == true ]]; then
+                exit $EXIT_VALUE
+            fi
         fi
+    else
+        success "${INSTALL_PACKAGE} is alredy installed"
     fi
 
     while IFS= read -r filename
@@ -217,7 +222,7 @@ function success()
     local message="${1:-}"
 
     if [[ -n "${message}" ]]; then
-        printf ' [  %s%sOK%s  ] Processing successful for %s\n' "${bold}" "${success}" "${normal}" "${message}"
+        printf ' [  %s%sOK%s  ] %s\n' "${bold}" "${success}" "${normal}" "${message}"
     fi
 }
 
