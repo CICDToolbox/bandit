@@ -55,7 +55,7 @@ function install_prerequisites
     else
         fail "${INSTALL_COMMAND}" "${errors}" true
         if [[ "${EXIT_ON_INSTALL_FAILURE}" == true ]]; then
-            exit $EXIT_VALUE                            # Bail out as we
+            exit $EXIT_VALUE
         fi
     fi
 
@@ -67,7 +67,7 @@ function install_prerequisites
         else
             fail "${CMD}" "${errors}" true
             if [[ "${EXIT_ON_INSTALL_FAILURE}" == true ]]; then
-                exit $EXIT_VALUE                            # Bail out as we
+                exit $EXIT_VALUE
             fi
         fi
     done < <(git ls-files | grep -E 'requirements.txt')
