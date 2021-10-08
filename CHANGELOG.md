@@ -7,7 +7,9 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 ### [Unreleased](https://github.com/CICDToolbox/bandit/compare/v0.1.0...HEAD)
 
-- Move logo to cdn [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
+- update [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
+
+- Move logo to cdn [`[793874d]`](https://github.com/CICDToolbox/bandit/commit/793874dba99470ceb3cec14a2730b329f1409850)
 
 - update [`[c5bb1de]`](https://github.com/CICDToolbox/bandit/commit/c5bb1de3634fe1844e1545736258102487f53544)
 
