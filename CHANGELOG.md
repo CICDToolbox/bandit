@@ -9,6 +9,8 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 - update [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
 
+- update [`[dac6613]`](https://github.com/CICDToolbox/bandit/commit/dac6613fcdfd734fe207be7610fd6fb44a22d0c9)
+
 - update [`[d7f90ec]`](https://github.com/CICDToolbox/bandit/commit/d7f90eca7ebf38311df206361f8e5a89f1fd1f7c)
 
 - update [`[67acba3]`](https://github.com/CICDToolbox/bandit/commit/67acba35657de4eeacb4a564a3082ec6b07aecb1)
