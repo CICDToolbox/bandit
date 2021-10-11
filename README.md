@@ -61,7 +61,6 @@ The following environment variables can be set in order to customise the script.
 | Name          | Purpose | Default Value |
 | ------------- | ------- | ------------- |
 | EXCLUDE_FILES | A comma separated list of files to exclude from being scanned. | Unset |
-| EXIT_ON_INSTALL_FAILURE | Exit the script if the install of the prerequisites fails (they might already exist). | False |
 | REPORT_ONLY   | Generate the report but do not fail the build even if an error occurred. | False | 
 | SHOW_ERRORS   | Show the actual errors instead of just which files had errors. | False | 
 
@@ -80,7 +79,6 @@ jobs:
         python-version: 3.9
     - name: Run Bandit
       env:
-        EXIT_ON_INSTALL_FAILURE: true
         REPORT_ONLY: true
         SHOW_ERRORS: true
       run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/bandit/master/pipeline.sh)

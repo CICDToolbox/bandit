@@ -9,6 +9,8 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 - update [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
 
+- update [`[33bee05]`](https://github.com/CICDToolbox/bandit/commit/33bee05fe835cb335ad2ae6933a3c6568ae958f8)
+
 - Move logo to cdn [`[793874d]`](https://github.com/CICDToolbox/bandit/commit/793874dba99470ceb3cec14a2730b329f1409850)
 
 - update [`[c5bb1de]`](https://github.com/CICDToolbox/bandit/commit/c5bb1de3634fe1844e1545736258102487f53544)
