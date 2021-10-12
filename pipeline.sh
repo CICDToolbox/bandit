@@ -26,7 +26,7 @@ set -Eeuo pipefail
 # CURRENT_STAGE - The current stage used for the reporting output.                 #
 # -------------------------------------------------------------------------------- #
 
-INSTALL_PACKAGE='bandit22'
+INSTALL_PACKAGE='bandit'
 INSTALL_COMMAND="pip install --quiet ${INSTALL_PACKAGE}"
 
 TEST_COMMAND='bandit'
