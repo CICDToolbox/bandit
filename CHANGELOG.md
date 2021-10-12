@@ -9,6 +9,8 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 - New logo [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
 
+- New logo [`[05e7897]`](https://github.com/CICDToolbox/bandit/commit/05e78972aec0023891319ea98246eebc0a3f14f8)
+
 - New logo [`[5d5b119]`](https://github.com/CICDToolbox/bandit/commit/5d5b1196cf0696df09d80564bc83e4f5fc75f3ef)
 
 - New logo [`[745e02c]`](https://github.com/CICDToolbox/bandit/commit/745e02c12d82250795dd468218868ae743b22d72)
