@@ -69,7 +69,7 @@ function install_prerequisites
             fail "${CMD}" "${errors}" true
             exit $EXIT_VALUE
         fi
-    done < <(find -- -name 'requirements.txt' -type f | sort -zVd)
+    done < <(find -- * -name 'requirements.txt' -type f | sort -zVd)
 }
 
 # -------------------------------------------------------------------------------- #
