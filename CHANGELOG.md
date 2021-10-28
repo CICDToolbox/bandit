@@ -7,7 +7,9 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 ### [Unreleased](https://github.com/CICDToolbox/bandit/compare/v0.1.0...HEAD)
 
-- update readme [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
+- shellcheck [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
+
+- update readme [`[aa31420]`](https://github.com/CICDToolbox/bandit/commit/aa31420d0feedf8b7fe0b6ba78cc2746e4b045ad)
 
 - New logo [`[48edbd9]`](https://github.com/CICDToolbox/bandit/commit/48edbd97ac068c908b16dbaab57c8ac602b9259c)
 

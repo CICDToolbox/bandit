@@ -69,7 +69,7 @@ function install_prerequisites
             fail "${CMD}" "${errors}" true
             exit $EXIT_VALUE
         fi
-    done < <(git ls-files | grep -E 'requirements.txt')
+    done < <(find -- -name 'requirements.txt' -type f | sort -zVd)
 }
 
 # -------------------------------------------------------------------------------- #
@@ -143,7 +143,7 @@ function scan_files()
                 check "${filename}"
             fi
         fi
-    done < <(git ls-files | sort -zVd)
+    done < <(find -- * -type f | sort -zVd)
 }
 
 # -------------------------------------------------------------------------------- #
