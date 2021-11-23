@@ -69,7 +69,7 @@ function install_prerequisites
             fail "${CMD}" "${errors}" true
             exit $EXIT_VALUE
         fi
-    done < <(find . -name 'requirements.txt' -type f -not -path "./.git/*" | sed 's|^./||' | sort -zVd)
+    done < <(find . -name 'requirements.txt' -type f -not -path "./.git/*" | sed 's|^./||' | sort -Vf)
 }
 
 # -------------------------------------------------------------------------------- #
@@ -143,7 +143,7 @@ function scan_files()
                 check "${filename}"
             fi
         fi
-    done < <(find . -type f -not -path "./.git/*" | sed 's|^./||' | sort -zVd)
+    done < <(find . -type f -not -path "./.git/*" | sed 's|^./||' | sort -Vf)
 }
 
 # -------------------------------------------------------------------------------- #
