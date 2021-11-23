@@ -69,7 +69,7 @@ function install_prerequisites
             fail "${CMD}" "${errors}" true
             exit $EXIT_VALUE
         fi
-    done < <(find -- * -name 'requirements.txt' -type f | sort -zVd)
+    done < <(find . -name 'requirements.txt' -type f | sed 's|^./||' | sort -zVd)
 }
 
 # -------------------------------------------------------------------------------- #
@@ -143,7 +143,7 @@ function scan_files()
                 check "${filename}"
             fi
         fi
-    done < <(find -- * -type f | sort -zVd)
+    done < <(find . -type f | sed 's|^./||' | sort -zVd)
 }
 
 # -------------------------------------------------------------------------------- #
