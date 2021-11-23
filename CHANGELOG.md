@@ -9,6 +9,8 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 - Fix find command [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
 
+- Fix find command [`[d8779ff]`](https://github.com/CICDToolbox/bandit/commit/d8779ff73ccf0e0d8f734db8248e28c81fb76220)
+
 - shellcheck [`[ea00570]`](https://github.com/CICDToolbox/bandit/commit/ea00570b8c114cdcf85fdd189f2f3f9118149afe)
 
 - shellcheck [`[89ce459]`](https://github.com/CICDToolbox/bandit/commit/89ce4592a1792a2b1d50c0787122054ddaf23980)
