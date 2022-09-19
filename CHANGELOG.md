@@ -7,7 +7,9 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 ### [Unreleased](https://github.com/CICDToolbox/bandit/compare/v0.1.0...HEAD)
 
-- Fix find command [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
+- Make errors easier to see and default to showing errors [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
+
+- Fix find command [`[76b924d]`](https://github.com/CICDToolbox/bandit/commit/76b924d53b4e3f0591f05a572d20ffeb94173557)
 
 - Fix find command [`[0ab9676]`](https://github.com/CICDToolbox/bandit/commit/0ab967640130f7a396ed5b03fc0a6904d9e38b15)
 
