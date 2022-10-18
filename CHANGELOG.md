@@ -9,6 +9,8 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 - Change the logic for skipping and showing skipped files [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
 
+- Change the logic for skipping and showing skipped files [`[2d8acc2]`](https://github.com/CICDToolbox/bandit/commit/2d8acc209279fd1a725117890cb0eb4ae03b55b4)
+
 - Make errors easier to see and default to showing errors [`[f740bc2]`](https://github.com/CICDToolbox/bandit/commit/f740bc22321768c342e4d159685e5f60c3ef8e1d)
 
 - Fix find command [`[76b924d]`](https://github.com/CICDToolbox/bandit/commit/76b924d53b4e3f0591f05a572d20ffeb94173557)
