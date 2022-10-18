@@ -85,6 +85,24 @@ function get_version_information
 }
 
 # -------------------------------------------------------------------------------- #
+# Is Excluded                                                                      #
+# -------------------------------------------------------------------------------- #
+# Check to see if the filename is in the exclude_list.                             #
+# -------------------------------------------------------------------------------- #
+
+function is_excluded()
+{
+    local needle=$1
+
+    for i in "${exclude_list[@]}"; do
+        if [[ "${needle}" =~ ${i} ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+# -------------------------------------------------------------------------------- #
 # Check                                                                            #
 # -------------------------------------------------------------------------------- #
 # Check a specific file.                                                           #
@@ -108,24 +126,6 @@ function check()
             fail_count=$((fail_count+1))
         fi
     fi
-}
-
-# -------------------------------------------------------------------------------- #
-# Is Excluded                                                                      #
-# -------------------------------------------------------------------------------- #
-# Check to see if the filename is in the exclude_list.                             #
-# -------------------------------------------------------------------------------- #
-
-function is_excluded()
-{
-    local needle=$1
-
-    for i in "${exclude_list[@]}"; do
-        if [[ "${needle}" =~ ${i} ]]; then
-            return 0
-        fi
-    done
-    return 1
 }
 
 # -------------------------------------------------------------------------------- #
@@ -220,7 +220,7 @@ function success()
 
 function fail()
 {
-   local message="${1:-}"
+    local message="${1:-}"
     local errors="${2:-}"
     local override="${3:-}"
 
