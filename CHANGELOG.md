@@ -9,6 +9,8 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 - Change the logic for skipping and showing skipped files [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
 
+- Change the logic for skipping and showing skipped files [`[678f719]`](https://github.com/CICDToolbox/bandit/commit/678f719e4eb31bdfc85b4c6961b6259383573b53)
+
 - Change the logic for skipping and showing skipped files [`[2d8acc2]`](https://github.com/CICDToolbox/bandit/commit/2d8acc209279fd1a725117890cb0eb4ae03b55b4)
 
 - Make errors easier to see and default to showing errors [`[f740bc2]`](https://github.com/CICDToolbox/bandit/commit/f740bc22321768c342e4d159685e5f60c3ef8e1d)

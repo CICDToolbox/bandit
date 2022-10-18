@@ -45,7 +45,6 @@ jobs:
       - build-testing
       - awesomebot
       - shellcheck
-      - yaml-lint
     runs-on: ubuntu-latest
     steps:
       - name: Slack Post Workflow Notification
