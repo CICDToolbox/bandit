@@ -7,7 +7,9 @@ This changelog was automatically generated using [Caretaker](https://github.com/
 
 ### [Unreleased](https://github.com/CICDToolbox/bandit/compare/v0.1.0...HEAD)
 
-- Make test for existing command pyenv friendly [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
+- Remove false positives [`[head]`](https://github.com/CICDToolbox/bandit/commit/)
+
+- Make test for existing command pyenv friendly [`[553efe8]`](https://github.com/CICDToolbox/bandit/commit/553efe8eafb3852090ac92690aa6dc69f937fc7d)
 
 - Change the logic for skipping and showing skipped files [`[f7d01c0]`](https://github.com/CICDToolbox/bandit/commit/f7d01c07bedde04e72d5680945796d293745a685)
 

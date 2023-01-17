@@ -48,7 +48,7 @@ function install_prerequisites
 
     python -m pip install --quiet --upgrade pip
 
-    if ! pip list | grep ${TEST_COMMAND} &> /dev/null
+    if ! pip show ${TEST_COMMAND} &> /dev/null
     then
         if errors=$( ${INSTALL_COMMAND} 2>&1 ); then
             success "${INSTALL_COMMAND}"
