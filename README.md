@@ -1,32 +1,32 @@
 <p align="center">
-    <a href="https://github.com/CICDToolbox">
-        <img src="https://cdn.wolfsoftware.com/assets/images/github/organisations/cicdtoolbox/black-and-white-circle-256.png" alt="CICDToolbox Logo" />
+    <a href="https://github.com/CICDToolbox/">
+        <img src="https://cdn.wolfsoftware.com/assets/images/github/organisations/cicdtoolbox/black-and-white-circle-256.png" alt="CICDToolbox logo" />
     </a>
     <br />
-    <a href="https://github.com/CICDToolbox/bandit/actions/workflows/pipeline.yml">
-        <img src="https://img.shields.io/github/workflow/status/CICDToolbox/bandit/pipeline/master?style=for-the-badge" alt="Github Build Status">
+    <a href="https://github.com/CICDToolbox/bandit/actions/workflows/cicd-pipeline.yml">
+        <img src="https://img.shields.io/github/workflow/status/CICDToolbox/bandit/CICD%20Pipeline/master?style=for-the-badge" alt="Github Build Status">
     </a>
     <a href="https://github.com/CICDToolbox/bandit/releases/latest">
-        <img src="https://img.shields.io/github/v/release/CICDToolbox/bandit?color=blue&label=Latest%20Release&style=for-the-badge" alt="Commits since release">
+        <img src="https://img.shields.io/github/v/release/CICDToolbox/bandit?color=blue&label=Latest%20Release&style=for-the-badge" alt="Release">
     </a>
     <a href="https://github.com/CICDToolbox/bandit/releases/latest">
         <img src="https://img.shields.io/github/commits-since/CICDToolbox/bandit/latest.svg?color=blue&style=for-the-badge" alt="Commits since release">
     </a>
     <br />
-    <a href=".github/CODE_OF_CONDUCT.md">
+    <a href="https://github.com/CICDToolbox/bandit/blob/master/.github/CODE_OF_CONDUCT.md">
         <img src="https://img.shields.io/badge/Code%20of%20Conduct-blue?style=for-the-badge" />
     </a>
-    <a href=".github/CONTRIBUTING.md">
+    <a href="https://github.com/CICDToolbox/bandit/blob/master/.github/CONTRIBUTING.md">
         <img src="https://img.shields.io/badge/Contributing-blue?style=for-the-badge" />
     </a>
-    <a href=".github/SECURITY.md">
+    <a href="https://github.com/CICDToolbox/bandit/blob/master/.github/SECURITY.md">
         <img src="https://img.shields.io/badge/Report%20Security%20Concern-blue?style=for-the-badge" />
     </a>
     <a href="https://github.com/CICDToolbox/bandit/issues">
         <img src="https://img.shields.io/badge/Get%20Support-blue?style=for-the-badge" />
     </a>
     <br />
-    <a href="https://wolfsoftware.com">
+    <a href="https://wolfsoftware.com/">
         <img src="https://img.shields.io/badge/Created%20by%20Wolf%20Software-blue?style=for-the-badge" />
     </a>
 </p>
@@ -44,26 +44,29 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Bandit
     runs-on: ubuntu-latest
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Run Bandit
-      run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/bandit/master/pipeline.sh)
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Run Bandit
+        run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/bandit/master/pipeline.sh)
 ```
 
 ### Other Options
 
 The following environment variables can be set in order to customise the script.
 
-| Name          | Purpose | Default Value |
-| ------------- | ------- | ------------- |
-| EXCLUDE_FILES | A comma separated list of files to exclude from being scanned. You can also use `regex` to do pattern matching. | Unset |
-| REPORT_ONLY   | Generate the report but do not fail the build even if an error occurred. | False | 
-| SHOW_ERRORS   | Show the actual errors instead of just which files had errors. | True | 
-| SHOW_SKIPPED  | Show which files are being skipped. | False | 
+| Name          | Default Value  | Purpose                                                                                                         |
+| :------------ | :------------: | :-------------------------------------------------------------------------------------------------------------- |
+| EXCLUDE_FILES | Unset          | A comma separated list of files to exclude from being scanned. You can also use `regex` to do pattern matching. |
+| NO_COLOR      | False          | Turn off the color in the output.                                                                               |
+| REPORT_ONLY   | False          | Generate the report but do not fail the build even if an error occurred.                                        |
+| SHOW_ERRORS   | True           | Show the actual errors instead of just which files had errors.                                                  |
+| SHOW_SKIPPED  | False          | Show which files are being skipped.                                                                             |
 
 You can use any combination of the above settings.
 
@@ -72,17 +75,19 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Bandit
     runs-on: ubuntu-latest
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Run Bandit
-      env:
-        REPORT_ONLY: true
-        SHOW_ERRORS: true
-      run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/bandit/master/pipeline.sh)
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Run Bandit
+        env:
+          REPORT_ONLY: true
+          SHOW_ERRORS: true
+        run: bash <(curl -s https://raw.githubusercontent.com/CICDToolbox/bandit/master/pipeline.sh)
 ```
 
 ## Example Output

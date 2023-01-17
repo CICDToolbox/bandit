@@ -48,7 +48,7 @@ function install_prerequisites
 
     python -m pip install --quiet --upgrade pip
 
-    if ! command -v ${TEST_COMMAND} &> /dev/null
+    if ! pip list | grep ${TEST_COMMAND} &> /dev/null
     then
         if errors=$( ${INSTALL_COMMAND} 2>&1 ); then
             success "${INSTALL_COMMAND}"
@@ -82,24 +82,6 @@ function get_version_information
 {
     VERSION=$("${TEST_COMMAND}" --version | head -n 1 | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')
     BANNER="Run ${TEST_COMMAND} (v${VERSION})"
-}
-
-# -------------------------------------------------------------------------------- #
-# Is Excluded                                                                      #
-# -------------------------------------------------------------------------------- #
-# Check to see if the filename is in the exclude_list.                             #
-# -------------------------------------------------------------------------------- #
-
-function is_excluded()
-{
-    local needle=$1
-
-    for i in "${exclude_list[@]}"; do
-        if [[ "${needle}" =~ ${i} ]]; then
-            return 0
-        fi
-    done
-    return 1
 }
 
 # -------------------------------------------------------------------------------- #
@@ -147,6 +129,46 @@ function scan_files()
 }
 
 # -------------------------------------------------------------------------------- #
+# Handle Non Standard Parameters                                                   #
+# -------------------------------------------------------------------------------- #
+# Handle any parameters that are not part of the standard pipeline template.       #
+# -------------------------------------------------------------------------------- #
+
+function handle_non_standard_parameters()
+{
+    local parameters=false
+
+    if [[ "${parameters}" != true ]]; then
+        return 1
+    fi
+    return 0
+}
+
+# -------------------------------------------------------------------------------- #
+# Utility Functions                                                                #
+# -------------------------------------------------------------------------------- #
+# Everything below is considered 'utility' and should not need to be changed.      #
+# -------------------------------------------------------------------------------- #
+
+# -------------------------------------------------------------------------------- #
+# Is Excluded                                                                      #
+# -------------------------------------------------------------------------------- #
+# Check to see if the filename is in the exclude_list.                             #
+# -------------------------------------------------------------------------------- #
+
+function is_excluded()
+{
+    local needle=$1
+
+    for i in "${exclude_list[@]}"; do
+        if [[ "${needle}" =~ ${i} ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+# -------------------------------------------------------------------------------- #
 # Handle Parameters                                                                #
 # -------------------------------------------------------------------------------- #
 # Handle any parameters from the pipeline.                                         #
@@ -176,10 +198,15 @@ function handle_parameters
 
     if [[ -n "${SHOW_SKIPPED-}" ]] && [[ "${SHOW_SKIPPED}" = true ]]; then
         SHOW_SKIPPED=true
-        echo " Show skipped: false"
+        echo " Show skipped: true"
         parameters=true
     else
         SHOW_SKIPPED=false
+    fi
+
+    if [[ "${NO_COLOR}" = true ]]; then
+        echo " No color: true"
+        parameters=true
     fi
 
     if [[ -n "${EXCLUDE_FILES-}" ]]; then
@@ -191,8 +218,27 @@ function handle_parameters
         declare -a exclude_list=()
     fi
 
+    if handle_non_standard_parameters; then
+        parameters=true
+    fi
+
     if [[ "${parameters}" != true ]]; then
         echo " No parameters given"
+    fi
+}
+
+# -------------------------------------------------------------------------------- #
+# Handle Parameters                                                                #
+# -------------------------------------------------------------------------------- #
+# Handle any parameters from the pipeline.                                         #
+# -------------------------------------------------------------------------------- #
+
+function handle_color_parameters
+{
+    if [[ -n "${NO_COLOR-}" ]] && [[ "${NO_COLOR}" = true ]]; then
+        NO_COLOR=true
+    else
+        NO_COLOR=false
     fi
 }
 
@@ -207,7 +253,7 @@ function success()
     local message="${1:-}"
 
     if [[ -n "${message}" ]]; then
-        printf ' [  %s%sOK%s  ] %s\n' "${bold}" "${success}" "${normal}" "${message}"
+        printf ' [  %s%sOK%s  ] %s\n' "${bold}" "${success}" "${reset}" "${message}"
     fi
 }
 
@@ -225,7 +271,7 @@ function fail()
     local override="${3:-}"
 
     if [[ -n "${message}" ]]; then
-        printf ' [ %s%sFAIL%s ] %s\n' "${bold}" "${error}" "${normal}" "${message}"
+        printf ' [ %s%sFAIL%s ] %s\n' "${bold}" "${error}" "${reset}" "${message}"
     fi
 
     if [[ "${SHOW_ERRORS}" == true ]] || [[ "${override}" == true ]] ; then
@@ -256,26 +302,37 @@ function skip()
     if [[ "${SHOW_SKIPPED}" == true ]]; then
         file_count=$((file_count+1))
         if [[ -n "${message}" ]]; then
-            printf ' [ %s%sSkip%s ] Skipping %s\n' "${bold}" "${skipped}" "${normal}" "${message}"
+            printf ' [ %s%sSkip%s ] Skipping %s\n' "${bold}" "${skipped}" "${reset}" "${message}"
         fi
     fi
 }
 
 # -------------------------------------------------------------------------------- #
-# Draw Line                                                                        #
+# Strip Colours                                                                    #
 # -------------------------------------------------------------------------------- #
-# Draw a line on the screen. Part of the report generation.                        #
+# Strip out control codes from a string.                                           #
+# Taken from: https://github.com/DevelopersToolbox/draw-lines                      #
 # -------------------------------------------------------------------------------- #
 
-function draw_line
+function strip_colours()
 {
-    printf '%*s\n' "${screen_width}" '' | tr ' ' -
+    orig="${1:-}"
+
+    if ! shopt -q extglob; then
+        shopt -s extglob
+        on=true
+    fi
+    clean="${orig//$'\e'[\[(]*([0-9;])[@-n]/}"
+    [[ "${on}" == true ]] && shopt -u extglob
+
+    echo "${clean}"
 }
 
 # -------------------------------------------------------------------------------- #
 # Align Right                                                                      #
 # -------------------------------------------------------------------------------- #
 # Draw text alined to the right hand side of the screen.                           #
+# Taken from: https://github.com/DevelopersToolbox/draw-lines                      #
 # -------------------------------------------------------------------------------- #
 
 function align_right()
@@ -284,7 +341,10 @@ function align_right()
     local offset="${2:-2}"
     local width=$screen_width
 
-    local textsize=${#message}
+    clean=$(strip_colours "${message}")
+
+    local textsize=${#clean}
+
     local left_line='-' left_width=$(( width - (textsize + offset + 2) ))
     local right_line='-' right_width=${offset}
 
@@ -306,7 +366,7 @@ function stage()
 
     CURRENT_STAGE=$((CURRENT_STAGE + 1))
 
-    align_right "Stage ${CURRENT_STAGE} - ${message}"
+    align_right "${bold}${info}Stage ${CURRENT_STAGE}: ${message}${reset}"
 }
 
 # -------------------------------------------------------------------------------- #
@@ -316,7 +376,7 @@ function stage()
 function footer
 {
     stage "Report"
-    printf ' Total: %s, %sOK%s: %s, %sFailed%s: %s, %sSkipped%s: %s\n' "${file_count}" "${success}" "${normal}" "${ok_count}" "${error}" "${normal}" "${fail_count}" "${skipped}" "${normal}" "${skip_count}"
+    printf ' %sTotal%s: %s, %s%sOK%s: %s, %s%sFailed%s: %s, %s%sSkipped%s: %s\n' "${bold}" "${reset}" "${file_count}" "${bold}" "${success}" "${reset}" "${ok_count}" "${bold}" "${error}" "${reset}" "${fail_count}" "${bold}" "${skipped}" "${reset}" "${skip_count}"
     stage 'Complete'
 }
 
@@ -330,13 +390,40 @@ function setup
 {
     export TERM=xterm
 
-    screen_width=98
-    bold="$(tput bold)"
-    normal="$(tput sgr0)"
-    error="$(tput setaf 1)"
-    success="$(tput setaf 2)"
-    skipped="$(tput setaf 6)"
+    handle_color_parameters
 
+    screen_width=0
+    bold=''
+    reset=''
+    fgRed=''
+    fgGreen=''
+    fgYellow=''
+    fgCyan=''
+    error=''
+    success=''
+    skipped=''
+    info=''
+
+    if [[ "${NO_COLOR}" == false ]]; then
+        screen_width=$(tput cols)
+        screen_width="$((screen_width - 2))"
+        bold="$(tput bold)"
+        reset="$(tput sgr0)"
+
+        fgRed=$(tput setaf 1)
+        fgGreen=$(tput setaf 2)
+        fgYellow=$(tput setaf 3)
+        fgCyan=$(tput setaf 6)
+
+        error="${fgRed}"
+        success="${fgGreen}"
+        skipped="${fgYellow}"
+        info="${fgCyan}"
+    fi
+
+    if (( screen_width < 140 )); then
+        screen_width=140
+    fi
     file_count=0
     ok_count=0
     fail_count=0
