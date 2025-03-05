@@ -40,8 +40,11 @@ INSTALL_COMMAND=('pip' 'install' '--quiet' 'bandit')
 # The specific command to run when running a test
 TEST_COMMAND=('bandit')
 
+# The specific command to check has been installed - should be first part of the test_command by default
+BASE_COMMAND="${TEST_COMMAND[0]}"
+
 # Version Banner - What to show on the version banned
-BANNER_NAME="${TEST_COMMAND[*]}"
+BANNER_NAME="${BASE_COMMAND}"
 
 # File type to match (comes from file -b) [Regex based]
 FILE_TYPE_SEARCH_PATTERN='^Python script'
@@ -249,7 +252,7 @@ function install_prerequisites()
             success "${INSTALL_COMMAND[*]}"
         fi
     else
-        if ! "${TEST_COMMAND[@]}" --help &> /dev/null; then
+        if ! "${BASE_COMMAND}" --help > /dev/null 2>&1; then
             # shellcheck disable=SC2310
             if ! errors=$(run_command "${INSTALL_COMMAND[@]}"); then
                 fail "${INSTALL_COMMAND[*]}" "${errors}" true
@@ -258,7 +261,7 @@ function install_prerequisites()
                 success "${INSTALL_COMMAND[*]}"
             fi
         else
-            success "${TEST_COMMAND[*]} is already installed"
+            success "${BASE_COMMAND} is already installed"
         fi
     fi
 
